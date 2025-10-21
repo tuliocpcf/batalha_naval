@@ -6,3 +6,10 @@ def define_posicoes(linha, coluna, orientacao, tamanho):
         else:
             casas_ocupadas.append([linha, coluna + i])
     return casas_ocupadas
+
+def preenche_frota(frota, nome_navio, linha, coluna, orientacao, tamanho):
+    if nome_navio in frota:
+        frota[nome_navio] += [define_posicoes(linha, coluna, orientacao, tamanho)]
+    else:
+        frota[nome_navio] = [define_posicoes(linha, coluna, orientacao, tamanho)]
+    return frota
