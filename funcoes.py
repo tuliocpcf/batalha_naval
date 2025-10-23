@@ -38,9 +38,9 @@ def posiciona_frota (frota):
     
     return tabuleiro
 
-def afundados(relatorio, tabuleiro):
+def afundados(frota, tabuleiro):
     n_afundados = 0
-    for navio, posicoes in relatorio.items():
+    for navio, posicoes in frota.items():
         for posicao in posicoes:
             afundou = True
             for coordenada in posicao:
@@ -49,3 +49,23 @@ def afundados(relatorio, tabuleiro):
             if afundou == True:
                 n_afundados += 1
     return n_afundados
+
+def posicao_valida(frota, linha, coluna, orientacao, tamanho):
+    entrada = define_posicoes(linha, coluna, orientacao, tamanho)
+
+    for coordenada in entrada:
+        if coordenada[0] < 10 and coordenada[1] < 10:
+            eh_valido = True
+            for navio, posicoes in frota.items():
+                for posicao in posicoes:
+                    if coordenada in posicao:
+                        eh_valido = False
+                        break
+                if not eh_valido:
+                    break
+            if not eh_valido:
+                break
+        else:    
+            eh_valido = False
+            break
+    return eh_valido
