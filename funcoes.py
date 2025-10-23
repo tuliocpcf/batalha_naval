@@ -69,3 +69,9 @@ def posicao_valida(frota, linha, coluna, orientacao, tamanho):
             eh_valido = False
             break
     return eh_valido
+
+def transforma_orientacao(orientacao):
+    if orientacao == 1:
+        return 'vertical'
+    else:
+        return 'horizontal'
