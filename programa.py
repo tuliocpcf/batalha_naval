@@ -1,4 +1,5 @@
 import funcoes as fn
+import random as rn
 
 lista_navio_tamanho_quant = [['porta-aviões', 4, 1], ['navio-tanque', 3, 2], ['contratorpedeiro', 2, 3], ['submarino', 1, 4]]
 frota_jogador = {
@@ -66,6 +67,7 @@ tabuleiro_oponente = fn.posiciona_frota(frota_oponente)
 
 jogando = True
 lista_de_ataques_jogador = []
+lista_de_ataques_oponente = []
 
 while jogando:
     print(fn.monta_tabuleiros(tabuleiro_jogador, tabuleiro_oponente))
@@ -96,6 +98,28 @@ while jogando:
     tabuleiro_oponente = fn.faz_jogada(tabuleiro_oponente, linha_ataque, coluna_ataque)
 
     if fn.afundados(frota_oponente, tabuleiro_oponente) == 10:
+        ganhou = 'jogador'
         jogando = False
+    
+    if jogando:
+        linha_ataque_oponente = rn.randint(0, 9)
+        coluna_ataque_oponente = rn.randint(0, 9)
+        while [linha_ataque_oponente, coluna_ataque_oponente] in lista_de_ataques_oponente:
+            linha_ataque_oponente = rn.randint(0, 9)
+            coluna_ataque_oponente = rn.randint(0, 9)
+        
+        lista_de_ataques_oponente.append([linha_ataque_oponente, coluna_ataque_oponente])
+        print(f'Seu oponente está atacando na linha {linha_ataque_oponente} e coluna {coluna_ataque_oponente}')
+        tabuleiro_jogador = fn.faz_jogada(tabuleiro_jogador, linha_ataque_oponente, coluna_ataque_oponente)
+        if fn.afundados(frota_jogador, tabuleiro_jogador) == 10:
+            ganhou = 'oponente'
+            jogando = False
 
-print('Parabéns! Você derrubou todos os navios do seu oponente!')
+if ganhou == 'jogador':
+    print('Parabéns! Você derrubou todos os navios do seu oponente!')
+else:
+    print('Xi! O oponente derrubou toda a sua frota =(')
+        
+
+
+
